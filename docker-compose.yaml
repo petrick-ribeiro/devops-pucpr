@@ -1,0 +1,40 @@
+networks:
+  api_net:
+
+services:
+  client:
+    image: todo-client:1.0.0
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    container_name: client
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - api_net
+    depends_on:
+      - api
+
+  api:
+    image: todo-api:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    restart: always
+    # ports:
+    #   - 9000:9000
+    networks:
+      - api_net
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine3.22
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=Foobar123!
+    networks:
+      - api_net

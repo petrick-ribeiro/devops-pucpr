@@ -4,19 +4,19 @@ on: [push]
 
 jobs:
   test:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  env:
-    DATABASE_URL: ${{secrets.DB_HOST }}://${{ secrets.DB_USER}}:${{ secrets.DB_PASS }}@localhost:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}
-  services:
-    db:
-      image: postgres:16-alpine3.22
-      env:
-        POSTGRES_USER: ${{ secrets.DB_USER }}
-        POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
-        POSTGRES_DB: ${{ secrets.DB_NAME  }}
-      ports:
-        - 5432:5432
+    env:
+      DATABASE_URL: ${{secrets.DB_HOST }}://${{ secrets.DB_USER}}:${{ secrets.DB_PASS }}@localhost:${{ secrets.DB_PORT }}/${{ secrets.DB_NAME }}
+    services:
+      db:
+        image: postgres:16-alpine3.22
+        env:
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+          POSTGRES_DB: ${{ secrets.DB_NAME  }}
+        ports:
+          - 5432:5432
 
   build:
     runs-on: ubuntu-latest

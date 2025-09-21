@@ -13,8 +13,9 @@ jobs:
       with:
         webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
         content: |
-          "Push feito em ${{ github.repository }} na branch ${{ github.head_ref }}!"
-          "Acesse o PR aqui: ${{ github.event.pull_request.html_url }}"
+          🚀 **Novo Pull Request!** 🚀
+          Um novo PR foi feito em **${{ github.repository }}** na branch **`${{ github.head_ref }}`**!
+          🔗 Acesse o PR aqui: [Clique aqui para acessar]( ${{ github.event.pull_request.html_url }})
   test:
     runs-on: ubuntu-latest
     env:

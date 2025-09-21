@@ -3,6 +3,14 @@ name: Docker Compose Action
 on: [push, pull_request]
 
 jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Discord notification
+      uses: tsickert/discord-webhook@v5
+      with:
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        content: "Push feito em ${{ github.repository }} na branch ${{ github.ref_name }}!"
   test:
     runs-on: ubuntu-latest
     env:

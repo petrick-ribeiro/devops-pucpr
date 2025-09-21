@@ -1,8 +1,21 @@
 name: Docker Compose Action
 
-on: [push, pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened] 
 
 jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Discord notification
+      uses: tsickert/discord-webhook@v7.0.0
+      with:
+        webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        content: |
+          🚀 **Novo Pull Request!** 🚀
+          Um novo PR foi feito em **${{ github.repository }}** na branch **`${{ github.head_ref }}`**!
+          🔗 Acesse o PR aqui: [Clique aqui para acessar]( ${{ github.event.pull_request.html_url }})
   test:
     runs-on: ubuntu-latest
     env:
